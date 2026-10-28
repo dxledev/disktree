@@ -1,4 +1,4 @@
-//! Light or dark when there is no Omarchy theme to follow.
+//! Light or dark when there is no shell palette or Omarchy theme to follow.
 //!
 //! On Omarchy, gpui-omarchy follows the desktop's theme files. Elsewhere there
 //! are none, and gpui-omarchy would then stay on its dark default whatever

@@ -17,6 +17,7 @@ mod git;
 mod marks;
 mod palette;
 mod power;
+mod shell_theme;
 mod state;
 #[cfg(test)]
 mod tests;
@@ -184,7 +185,13 @@ fn run() -> Result<()> {
             gpui_omarchy::init(cx);
             app_menu::install(cx);
             let home = std::env::home_dir();
-            let native_look = appearance::follows_system(home.as_deref());
+            // The desktop's own palette, static or any shell's dynamic one,
+            // wins over Omarchy's and the system appearance where it exists.
+            let shell_look = home
+                .as_deref()
+                .is_some_and(|home| shell_theme::follow(home, cx));
+            let native_look =
+                !shell_look && appearance::follows_system(home.as_deref());
             if native_look {
                 appearance::apply(cx.window_appearance(), cx);
             }
